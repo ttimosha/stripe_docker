@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<h1>Shop</h1>
+
+<button type="button">
+    <a href="{% url 'order' %}">Go to order</a>
+</button>
+
+{% for item in object_list %}
+    <ul>
+    <li>{{ item.name }}</li>
+    <li>{{ item.price }} $</li>
+    <li>{{ item.description }}</li>
+    <li>
+        <button type="button" onclick="add_to_order('{% url 'add-to-order' id=item.id %}')">
+            add to order
+        </button>
+    </li>
+    </ul>
+{% endfor %}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    function add_to_order(url){
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
+            success: function (data) {
+                console.log("success");
+                console.log(data);
+            },
+            failure: function (data) {
+                console.log("failure");
+                console.log(data);
+            },
+        });
+    }
+
+</script>

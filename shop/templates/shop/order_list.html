@@ -1,0 +1,22 @@
+<h1>Shop</h1>
+
+<button type="button">
+    <a href="{% url 'items' %}">Shop items</a>
+</button>
+<h2>Your order</h2>
+<h2>Discount: {{ order.discount }}</h2>
+<ul> 
+{% if counter|length > 0 %}
+    {% for item, count in counter.items %}
+        
+        <li>{{ item }} {{ item.price }} $, {{ count }}</li>
+        
+    {% endfor %}
+
+</ul>
+
+<button type="button">
+    <a href="{% url 'buy-items' %}">Buy</a>
+</button>
+{% endif %}
+
